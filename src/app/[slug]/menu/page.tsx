@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { db } from "@/lib/prisma";
 
+import RestaurantCategories from "./components/categories";
 import RestaurantHeader from "./components/header";
 
 interface RestaurantMenuPageProps {
@@ -46,7 +47,35 @@ const RestaurantMenuPage = async ({
 Se não for válido, redireciona para a página 404 usando notFound(). */
   }
 
-  const restaurant = await db.restaurant.findUnique({ where: { slug } });
+  const restaurant = await db.restaurant.findUnique({
+    where: { slug },
+    include: {
+      menuCategory: {
+        include: { products: true },
+      },
+    },
+  });
+
+  {
+    /* const restaurant = await db.restaurant.findUnique({ ... });:
+
+Este trecho de código é uma chamada assíncrona para o método findUnique do Prisma Client. Ele está procurando um registro específico na tabela restaurant.
+
+A chamada await faz com que o código aguarde a resolução da promessa retornada por findUnique antes de continuar.
+
+where: { slug },:
+
+Esta é a cláusula where, que especifica a condição de busca. Nesse caso, está procurando um restaurante com um slug específico.
+
+include: { menuCategory: { include: { products: true } } }:
+
+Este é um objeto de inclusão que especifica quais relações devem ser carregadas junto com o restaurante.
+
+menuCategory é uma relação do modelo restaurant.
+
+Dentro de menuCategory, ele está incluindo a relação products, indicando que os produtos associados a essa categoria de menu também devem ser carregados. */
+  }
+
   if (!restaurant) {
     return notFound();
   }
@@ -56,6 +85,7 @@ Se não for válido, redireciona para a página 404 usando notFound(). */
   return (
     <div>
       <RestaurantHeader restaurant={restaurant} />
+      <RestaurantCategories restaurant={restaurant} />
     </div>
   );
 };

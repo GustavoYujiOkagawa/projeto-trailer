@@ -18,7 +18,7 @@ const main = async () => {
           "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQU3JZGQeTmvPeJLoyOjzNsMqFdxUI423nBl6b",
       },
     });
-    const combosCategory = await tx.menuCategory.create({
+    /* const combosCategory = await tx.menuCategory.create({
       data: {
         name: "Combos",
         restaurantId: restaurant.id,
@@ -102,84 +102,62 @@ const main = async () => {
           ],
         },
       ],
-    });
+    }); */
+
+
+
     const hamburguersCategory = await tx.menuCategory.create({
       data: {
-        name: "Lanches",
+        name: "Sushi",
         restaurantId: restaurant.id,
       },
     });
     await tx.product.createMany({
       data: [
         {
-          name: "Big Mac",
-          description:
-            "Quatro hambúrgueres (100% carne bovina), alface americana, queijo fatiado sabor cheddar, molho especial, cebola, picles e pão com gergilim, acompanhamento e bebida.",
-          ingredients: [
-            "Pão com gergilim",
-            "Hambúrguer de carne 100% bovina",
-            "Alface americana",
-            "Queijo fatiado sabor cheddar",
-            "Molho especial",
-            "Cebola",
-            "Picles",
-          ],
-          price: 39.9,
+          name: "Hot Roll de Salmão Cru",
+        description: "Enrolado empanado e frito, recheado com salmão cru, arroz e alga nori, servido com molho tarê.",
+        ingredients: ["Salmão cru", "Arroz", "Alga nori", "Molho tarê"],
+          price: 28.0,
           imageUrl:
             "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQKfI6fivqActTvBGLXfQe4a8CJ6d3HiR7USPK",
           menuCategoryId: hamburguersCategory.id,
           restaurantId: restaurant.id,
         },
         {
-          name: "Duplo Quarterão",
-          description:
-            "Dois hambúrgueres de carne 100% bovina, méquinese, a exclusiva maionese especial com sabor de carne defumada, onion rings, fatias de bacon, queijo processado sabor cheddar, o delicioso molho lácteo com queijo tipo cheddar tudo isso no pão tipo brioche trazendo uma explosão de sabores pros seus dias de glória! Acompanhamento e Bebida.",
-          ingredients: [
-            "Pão tipo brioche",
-            "Hambúrguer de carne 100% bovina",
-            "Méquinese",
-            "Maionese especial com sabor de carne defumada",
-            "Onion rings",
-            "Fatias de bacon",
-            "Queijo processado sabor cheddar",
-            "Molho lácteo com queijo tipo cheddar",
-          ],
-          price: 41.5,
+          name: "Hot Roll de Salmão Grelhado",
+        description: "Enrolado empanado e frito, recheado com salmão grelhado, arroz e alga nori, servido com molho tarê.",
+        ingredients: ["Salmão grelhado", "Arroz", "Alga nori", "Molho tarê"],
+          price: 28.0,
           imageUrl:
             "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQ99rtECuYaDgmA4VujBU0wKn2ThXJvF3LHfyc",
           menuCategoryId: hamburguersCategory.id,
           restaurantId: restaurant.id,
         },
         {
-          name: "McMelt",
-          description:
-            "Composto por pão tipo brioche com batata, molho Honey&Fire, bacon em fatias, alface, tomate, queijo sabor cheddar e carne 100% de peito de frango, temperada e empanada, acompanhamento e bebida.",
-          ingredients: [
-            "Pão tipo brioche",
-            "Batata",
-            "Molho Honey&Fire",
-            "Bacon em fatias",
-            "Alface",
-            "Tomate",
-            "Queijo sabor cheddar",
-            "Carne 100% de peito de frango",
-          ],
-          price: 39.9,
+          name: "Temaki de Salmão",
+        description: "Cone de alga nori recheado com salmão cru, arroz e cream cheese.",
+        ingredients: ["Salmão cru", "Arroz", "Cream cheese", "Alga nori"],
+          price: 28.0,
           imageUrl:
             "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQUY0VlDTmvPeJLoyOjzNsMqFdxUI423nBl6br",
           menuCategoryId: hamburguersCategory.id,
           restaurantId: restaurant.id,
         },
         {
-          name: "McNífico Bacon",
-          description:
-            "Dois hambúrgueres (100% carne bovina), molho lácteo com queijo tipo cheddar, cebola ao molho shoyu e pão escuro com gergelim, acompanhamento e bebida.",
-          ingredients: [
-            "Pão escuro com gergelim",
-            "Hambúrguer de carne 100% bovina",
-            "Molho lácteo com queijo tipo cheddar",
-            "Cebola ao molho shoyu",
-          ],
+          name: "Sushi de Atum",
+          description: "Sushi tradicional com fatia de atum fresco sobre arroz temperado.",
+          ingredients: ["Atum fresco", "Arroz temperado", "Alga nori"],
+          price: 36.2,
+          imageUrl:
+            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQBBmifbjzEVXRoycAtrP9vH45bZ6WDl3QF0a1",
+          menuCategoryId: hamburguersCategory.id,
+          restaurantId: restaurant.id,
+        },
+        {
+          name: "Sushi de Salmão Cru",
+          description: "Sushi tradicional com fatia de salmão cru sobre arroz temperado.",
+          ingredients: ["Salmão cru", "Arroz temperado", "Alga nori"],
           price: 36.2,
           imageUrl:
             "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQBBmifbjzEVXRoycAtrP9vH45bZ6WDl3QF0a1",
@@ -188,7 +166,7 @@ const main = async () => {
         },
       ],
     });
-    const frenchFriesCategory = await tx.menuCategory.create({
+    /* const frenchFriesCategory = await tx.menuCategory.create({
       data: {
         name: "Fritas",
         restaurantId: restaurant.id,
@@ -229,7 +207,7 @@ const main = async () => {
           restaurantId: restaurant.id,
         },
       ],
-    });
+    }); */
     const drinksCategory = await tx.menuCategory.create({
       data: {
         name: "Bebidas",
