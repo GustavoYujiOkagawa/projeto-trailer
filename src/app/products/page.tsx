@@ -1,6 +1,6 @@
 const ProductPage = () => {
   return (
-    <div className="p-5 border-red-500 rounded-xl">
+    <div className="rounded-xl border-red-500 p-5">
       <h1 className="text-red-950">hello product!</h1>
     </div>
   );
