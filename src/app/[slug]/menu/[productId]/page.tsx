@@ -3,24 +3,42 @@ import { notFound } from "next/navigation";
 
 import { db } from "@/lib/prisma";
 
+import ProductDetails from "./components/Product-details";
 import ProductHeader from "./components/product-header";
 
 interface ProductPageProps{
     params: Promise<{slug: string; productId:string}>
 }
+/* Aqui, é definida uma interface TypeScript chamada ProductPageProps. Ela especifica que o componente ProductPage espera receber uma prop chamada params, que é uma Promise contendo um objeto com duas propriedades:
+
+slug: Uma string que pode representar um identificador amigável (por exemplo, o nome do produto formatado para URLs).
+
+productId: Uma string que representa o ID único do produto. */
 
 const ProductPage = async ({params}: ProductPageProps) => {
-    const {slug, productId} = await params;
-    const product = await db.product.findUnique({where: {id: productId}});
+    const { productId} = await params;
+    const product = await db.product.findUnique({where: {id: productId}, include:{
+        restaurant:{
+            select: {
+                name: true,
+                avatarImageUrl: true,
+                slug:true,
+            }
+        },
+    },
+});
     if(!product){
         return notFound()
     }
-    return <>
-        <ProductHeader product={product}/>
-        <h1>Product Page</h1>
-        {slug}
-        {productId}
-    </>;
+    if(product.restaurant.slug.toUpperCase() !== slug){
+        return notFound();
+    }
+    return (
+        <div className="flex h-full flex-col">
+         <ProductHeader product={product}/>
+         <ProductDetails product={product}/>
+    </div>
+    )
 }
  
 export default ProductPage;

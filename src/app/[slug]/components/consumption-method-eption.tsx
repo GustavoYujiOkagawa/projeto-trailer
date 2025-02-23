@@ -32,7 +32,7 @@ const ConsumptionMethodOption = ({
             src={imageUrl}
             fill
             alt={imageAlt}
-            className="object-contain"
+            className="object-contain "
           />
         </div>
 
