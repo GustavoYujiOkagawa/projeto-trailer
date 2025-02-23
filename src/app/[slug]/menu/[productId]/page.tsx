@@ -16,7 +16,7 @@ slug: Uma string que pode representar um identificador amigável (por exemplo, o
 productId: Uma string que representa o ID único do produto. */
 
 const ProductPage = async ({params}: ProductPageProps) => {
-    const { productId} = await params;
+    const {slug, productId} = await params;
     const product = await db.product.findUnique({where: {id: productId}, include:{
         restaurant:{
             select: {
@@ -30,9 +30,9 @@ const ProductPage = async ({params}: ProductPageProps) => {
     if(!product){
         return notFound()
     }
-    if(product.restaurant.slug.toUpperCase() !== slug){
+    if(product.restaurant.slug !== slug){
         return notFound();
-    }
+    } 
     return (
         <div className="flex h-full flex-col">
          <ProductHeader product={product}/>
