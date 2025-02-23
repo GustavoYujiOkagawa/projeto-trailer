@@ -9,7 +9,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "CrispyDuo",
+  title: "Sushi Box",
   description: "Sabor que derrete, crocância que encanta!",
 };
 

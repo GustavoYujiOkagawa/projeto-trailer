@@ -120,7 +120,7 @@ const main = async () => {
         ingredients: ["Salmão cru", "Arroz", "Alga nori", "Molho tarê"],
           price: 28.0,
           imageUrl:
-            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQKfI6fivqActTvBGLXfQe4a8CJ6d3HiR7USPK",
+            "https://i.imgur.com/QKuhfSi.png",
           menuCategoryId: hamburguersCategory.id,
           restaurantId: restaurant.id,
         },
@@ -130,27 +130,17 @@ const main = async () => {
         ingredients: ["Salmão grelhado", "Arroz", "Alga nori", "Molho tarê"],
           price: 28.0,
           imageUrl:
-            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQ99rtECuYaDgmA4VujBU0wKn2ThXJvF3LHfyc",
+            "https://i.imgur.com/LYDquw6.png",
           menuCategoryId: hamburguersCategory.id,
           restaurantId: restaurant.id,
         },
         {
-          name: "Temaki de Salmão",
+          name: "Temaki de Salmão grelhado",
         description: "Cone de alga nori recheado com salmão cru, arroz e cream cheese.",
         ingredients: ["Salmão cru", "Arroz", "Cream cheese", "Alga nori"],
           price: 28.0,
           imageUrl:
-            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQUY0VlDTmvPeJLoyOjzNsMqFdxUI423nBl6br",
-          menuCategoryId: hamburguersCategory.id,
-          restaurantId: restaurant.id,
-        },
-        {
-          name: "Sushi de Atum",
-          description: "Sushi tradicional com fatia de atum fresco sobre arroz temperado.",
-          ingredients: ["Atum fresco", "Arroz temperado", "Alga nori"],
-          price: 36.2,
-          imageUrl:
-            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQBBmifbjzEVXRoycAtrP9vH45bZ6WDl3QF0a1",
+            "https://i.imgur.com/uQfqNNP.png",
           menuCategoryId: hamburguersCategory.id,
           restaurantId: restaurant.id,
         },
@@ -158,9 +148,9 @@ const main = async () => {
           name: "Sushi de Salmão Cru",
           description: "Sushi tradicional com fatia de salmão cru sobre arroz temperado.",
           ingredients: ["Salmão cru", "Arroz temperado", "Alga nori"],
-          price: 36.2,
+          price: 28.0,
           imageUrl:
-            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQBBmifbjzEVXRoycAtrP9vH45bZ6WDl3QF0a1",
+            "https://i.imgur.com/f68Qb2e.png",
           menuCategoryId: hamburguersCategory.id,
           restaurantId: restaurant.id,
         },
@@ -248,7 +238,7 @@ const main = async () => {
         },
       ],
     });
-    const desertsCategory = await tx.menuCategory.create({
+    /* const desertsCategory = await tx.menuCategory.create({
       data: {
         name: "Sobremesas",
         restaurantId: restaurant.id,
@@ -287,7 +277,7 @@ const main = async () => {
           restaurantId: restaurant.id,
         },
       ],
-    });
+    }); */
   });
 };
 
