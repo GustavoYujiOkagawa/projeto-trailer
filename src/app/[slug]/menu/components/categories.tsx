@@ -98,8 +98,9 @@ const isOpenNow = () => {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-          <h3 className="px-5 font-semibold p-2">{selectedCategory.name}</h3>
-          <Products products={selectedCategory.products}/>
+      <h3 className="px-5 font-semibold p-2">{selectedCategory ? selectedCategory.name : 'Categoria não encontrada'}</h3>
+    <Products products={selectedCategory ? selectedCategory.products : []} />
+
     </div>
   );
 };
