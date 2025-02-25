@@ -63,7 +63,7 @@ if (!restaurant): Se o restaurante não for encontrado, a função notFound() é
           option="COMER_AQUI"
           buttonText="Para comer aqui"
           imageAlt="Comer aqui"
-          imageUrl="/IconeTrailer2.png"
+          imageUrl="/IconeTrailer.png"
         />
         <ConsumptionMethodOption
           slug={slug}
