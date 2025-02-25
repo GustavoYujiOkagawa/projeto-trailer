@@ -7,7 +7,7 @@ import { CartContext } from "../context/cart";
 // Importação do contexto
 
 const CartSheet = () => {
-    const { isOpen, toggleCart } = useContext(CartContext); // Uso do contexto
+    const { isOpen, toggleCart, products } = useContext(CartContext); // Uso do contexto
 
     return (
         // Modal do carrinho
@@ -20,6 +20,9 @@ const CartSheet = () => {
                     </SheetDescription>
                 </SheetHeader>
                 {/* Conteúdo do carrinho aqui */}
+                {products.map(product => (
+                    <h1 key={product.id}>{product.name} - {product.quantity}</h1>
+                ))}
             </SheetContent>
         </Sheet>
     );

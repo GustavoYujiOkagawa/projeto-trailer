@@ -3,7 +3,7 @@
 import { Product } from "@prisma/client";
 import { createContext, ReactNode, useState } from "react"; 
 
-interface CartProduct extends Product {
+interface CartProduct extends Pick<Product, "id" | "name" | "price" | "imageUrl"> {
     quantity: number;
 }
 /* Estende a interface Product (que vem do Prisma) para adicionar uma propriedade quantity.
@@ -14,6 +14,7 @@ export interface ICartContext {
     isOpen: boolean;
     products: CartProduct[];
     toggleCart: () => void;
+    addProduct: (product: CartProduct) => void;
 }
 /* Define a estrutura do contexto do carrinho:
 
@@ -29,6 +30,7 @@ export const CartContext = createContext<ICartContext>({
     isOpen: false,
     products: [],
     toggleCart: () => {},
+    addProduct: () => {},
 });
 /* createContext: Cria um contexto com valores padrão.
 
@@ -49,6 +51,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
    const toggleCart = () => {
     setIsOpen(prev => !prev);
    }
+   const addProduct = (product: CartProduct) => {
+    setProducts(prev => ([...prev, product]));
+   }
    /* Alterna o valor de isOpen entre true e false (abrir/fechar o carrinho). */
    return (
         <CartContext.Provider
@@ -56,6 +61,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                 isOpen,
                 products,
                 toggleCart,
+                addProduct,
             }}
         >
             {children}

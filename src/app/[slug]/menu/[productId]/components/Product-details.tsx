@@ -32,7 +32,7 @@ Informações do produto (nome, preço, descrição, ingredientes).
 Informações do restaurante (nome e URL da imagem). */
 
 const ProductDetails = ({product}: ProductDetailsProps) => {
-    const {toggleCart} = useContext(CartContext);
+    const {toggleCart, addProduct} = useContext(CartContext);
     /* Essa linha está usando o hook useContext para acessar o contexto do carrinho (CartContext). Ela extrai duas propriedades do contexto: */
     
     const [quantity, setQuantity] = useState<number>(1);
@@ -55,6 +55,10 @@ handleImcremeaseQuantity: Aumenta a quantidade. */
     }
 
     const handleAddToCart = () => {
+        addProduct({
+            ...product,
+            quantity,
+        });
         toggleCart();
     }
     /* Essa função chama o toggleCart do Context */

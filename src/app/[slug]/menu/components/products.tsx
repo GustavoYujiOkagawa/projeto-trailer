@@ -8,6 +8,7 @@ import { formatCurrency } from "@/helpers/format-currency";
 interface ProductsProps {
     products: Product[];
 }
+/* Define as propriedades que o componente Products espera receber. Neste caso, ele espera uma prop chamada products, que é um array de objetos do tipo Product. */
 
 const Products = ({ products }: ProductsProps) => {
     const {slug} = useParams<{slug:string}>()
@@ -16,7 +17,7 @@ const Products = ({ products }: ProductsProps) => {
             {products.map((product) => (
                 <Link key={product.id} href={`/${slug}/menu/${product.id}`} className="flex items-center justify-between gap-10 border-b py-3">
                     <div>
-                        <h3 className="text-sm font-medium">{product.name}</h3> {/* Corrigido de "font-medius" para "font-medium" */}
+                        <h3 className="text-sm font-medium">{product.name}</h3> 
                         <p className="line-clamp-2 text-sm text-muted-foreground">
                             {product.description}
                         </p>
