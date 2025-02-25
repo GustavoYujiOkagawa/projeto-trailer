@@ -50,10 +50,9 @@ if (!restaurant): Se o restaurante não for encontrado, a função notFound() é
       <div className="space-y-2 pt-24 text-center">
         <h3 className="text-2xl font-semibold">Seja bem-vindo!</h3>
         <p className="opacity-55">
-          Aqui, a crocância e o sabor se encontram! Delicie-se com hot rolls
-          quentinhos e pastéis crocantes, feitos na hora com ingredientes
-          frescos. Perfeito para dividir, repetir ou curtir sozinho. Venha viver
-          essa experiência única! 😊🍴
+        Aqui, crocância e sabor dão o match perfeito!
+Hot rolls quentinhos e pastéis crocantes, feitos na hora com ingredientes frescos.
+Perfeitos para compartilhar, repetir ou saborear sozinho. Vem viver essa experiência irresistível!
         </p>
       </div>
       {/* H3 e o paragrafo */}
@@ -63,14 +62,14 @@ if (!restaurant): Se o restaurante não for encontrado, a função notFound() é
           option="COMER_AQUI"
           buttonText="Para comer aqui"
           imageAlt="Comer aqui"
-          imageUrl="/IconeTrailer.png"
+          imageUrl="/IconeTrailer1.png"
         />
         <ConsumptionMethodOption
           slug={slug}
           option="Levar"
           buttonText="Para levar"
           imageAlt="Para levar"
-          imageUrl="/IconeTrailer1.png"
+          imageUrl="/IconeTrailer2.png"
         />
       </div>
     </div>

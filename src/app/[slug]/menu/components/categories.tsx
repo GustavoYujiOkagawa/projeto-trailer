@@ -48,7 +48,16 @@ useState: Define o estado selectedCategory com a primeira categoria do restauran
 "default" se nenhuma categoria estiver selecionada.
 "secondary" se o botão for da categoria selecionada.
 "destructive" para as demais categorias. */
-  
+const isOpenNow = () => {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  // Verifica se está entre 19:00 (19 * 60 = 1140 minutos) e 21:30 (21 * 60 + 30 = 1290 minutos)
+  const nowInMinutes = hours * 60 + minutes;
+  return nowInMinutes >= 1140 && nowInMinutes <= 1290;
+};
+
   return (
     <div className="relative z-50 mt-[-1.5em] rounded-t-3xl  bg-white">
       <div className="p-5">
@@ -64,10 +73,12 @@ useState: Define o estado selectedCategory com a primeira categoria do restauran
             <p className="text-xs opacity-55">{restaurant.description}</p>
           </div>
         </div>
-        <div className="mt-3 flex items-center gap-1 text-xs text-green-500">
-          <ClockIcon size={12} />
-          <p>Aberto</p>
-        </div>
+            <div className="mt-3 flex items-center gap-1 text-xs" 
+        style={{ color: isOpenNow() ? "green" : "red" }}>
+      <ClockIcon size={12} />
+      <p>{isOpenNow() ? "Aberto" : "Fechado"}</p>
+    </div>
+
       </div>
 
       <ScrollArea className="w-full">

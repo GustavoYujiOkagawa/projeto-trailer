@@ -126,7 +126,7 @@ handleImcremeaseQuantity: Aumenta a quantidade. */
             </div>
 
             {/* Botão para adicionar ao carrinho e abrir o modal */}
-            <Button className="rounded-full w-full mt-6" onClick={handleAddToCart}>
+            <Button className="rounded-full w-full mt-6" variant="destructive" onClick={handleAddToCart}>
                 Adicionar à sacola
             </Button>
         </div>
