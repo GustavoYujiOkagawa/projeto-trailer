@@ -18,6 +18,7 @@ export interface ICartContext {
     addProduct: (product: CartProduct) => void;
     decreaseProductQuantity: (productid: string) => void;
     increaseProductQuantity: (productid: string) => void;
+    removeProduct: (productid: string) => void;
 }
 /* Define a estrutura do contexto do carrinho:
 
@@ -35,6 +36,7 @@ export const CartContext = createContext<ICartContext>({
     addProduct: () => {},
     decreaseProductQuantity: () => {},
     increaseProductQuantity: () => {},
+    removeProduct: () => {},
 });
 /* createContext: Cria um contexto com valores padrão.
 
@@ -119,6 +121,15 @@ Se o id não for igual a productid e a quantidade for maior que 1, a quantidade 
         });
     });
    }
+   /* Se o id do produto não for igual ao productid, mantém o produto sem alterações.
+Se o id for igual ao productid e a quantidade for 1, mantém o produto sem alterações (parece um erro, já que o esperado seria aumentar).
+Caso contrário, aumenta a quantidade em 1.
+Problema: A lógica está invertida; o produto alvo não é alterado corretamente devido ao primeiro if. Deveria verificar id === productid para aumentar. */
+const removeProduct = (productId: string) => {
+    setProducts(prevProducts => prevProducts.filter(prevProducts => prevProducts.id !== productId));
+}
+
+   /* Usa filter para criar uma nova array excluindo o produto cujo id é igual ao productId. */
    return (
         <CartContext.Provider
             value={{
@@ -128,6 +139,7 @@ Se o id não for igual a productid e a quantidade for maior que 1, a quantidade 
                 addProduct,
                 decreaseProductQuantity,
                 increaseProductQuantity,
+                removeProduct
             }}
         >
             {children}
