@@ -1,5 +1,5 @@
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,10 +8,13 @@ import { formatCurrency } from "@/helpers/format-currency";
 
 import { CartContext } from "../context/cart";
 import CartProductItem from "./cart-product-item";
+import FinishOrderDialog from "./finish-order-dialog";
 
 // Importação do contexto
 
 const CartSheet = () => {
+
+    const {finishOrderDialogIsIpen, setFinishOrderDialogIsIpen} = useState(false);
     const { isOpen, toggleCart, products, total } = useContext(CartContext); // Uso do contexto
 
     return (
@@ -38,7 +41,8 @@ const CartSheet = () => {
                 </CardContent>
            </Card>
 
-                <Button className="w-full rounded-full mb-5" variant="destructive">Finalizar pedido</Button>
+               
+                <FinishOrderDialog open={finishOrderDialogIsIpen} onOpenChange={setFinishOrderDialogIsIpen} />
                 </div>
             </SheetContent>
         </Sheet>
