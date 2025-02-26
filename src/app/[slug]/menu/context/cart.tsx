@@ -14,11 +14,13 @@ Adiciona o campo extra quantity para armazenar a quantidade do produto no carrin
 export interface ICartContext {
     isOpen: boolean;
     products: CartProduct[];
+    total: number,
     toggleCart: () => void;
     addProduct: (product: CartProduct) => void;
     decreaseProductQuantity: (productid: string) => void;
     increaseProductQuantity: (productid: string) => void;
     removeProduct: (productid: string) => void;
+    
 }
 /* Define a estrutura do contexto do carrinho:
 
@@ -32,6 +34,7 @@ addProduct: Função para adicionar produtos ao carrinho.
 export const CartContext = createContext<ICartContext>({
     isOpen: false,
     products: [],
+    total: 0,
     toggleCart: () => {},
     addProduct: () => {},
     decreaseProductQuantity: () => {},
@@ -51,6 +54,10 @@ toggleCart: Uma função vazia (será implementada no CartProvider). */
 export const CartProvider = ({ children }: { children: ReactNode }) => {
    const [products, setProducts]= useState<CartProduct[]>([]);
    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+   const total = products.reduce((acc, product) => {
+    return acc + product.price * product.quantity;
+   },0)
     /* products: Armazena a lista de produtos no carrinho, iniciando como um array vazio.
 isOpen: Controla se o carrinho está aberto ou fechado, iniciando como false.
  */
@@ -139,7 +146,8 @@ const removeProduct = (productId: string) => {
                 addProduct,
                 decreaseProductQuantity,
                 increaseProductQuantity,
-                removeProduct
+                removeProduct,
+                total
             }}
         >
             {children}
