@@ -16,6 +16,7 @@ export interface ICartContext {
     products: CartProduct[];
     toggleCart: () => void;
     addProduct: (product: CartProduct) => void;
+    decreaseProductQuantity: (productid: string) => void;
 }
 /* Define a estrutura do contexto do carrinho:
 
@@ -31,6 +32,7 @@ export const CartContext = createContext<ICartContext>({
     products: [],
     toggleCart: () => {},
     addProduct: () => {},
+    decreaseProductQuantity: () => {},
 });
 /* createContext: Cria um contexto com valores padrão.
 
@@ -83,6 +85,23 @@ isOpen: Controla se o carrinho está aberto ou fechado, iniciando como false.
     });
 };
 
+const decreaseProductQuantity = (productid: string) => {
+    setProducts((prevProducts) => {
+        return prevProducts.map(prevProduct => {
+            if (prevProduct.id !== productid) {
+                return prevProduct;
+            }
+            if(prevProduct.quantity === 1){
+                return prevProduct;
+            }
+            return { ...prevProduct, quantity: prevProduct.quantity - 1 };
+        });
+    });
+};
+/* Se o id do produto for igual a productid, ele não muda.
+Se o id não for igual a productid e a quantidade for 1, ele não muda.
+Se o id não for igual a productid e a quantidade for maior que 1, a quantidade é diminuída em 1. */
+
    /* Alterna o valor de isOpen entre true e false (abrir/fechar o carrinho). */
    return (
         <CartContext.Provider
@@ -91,6 +110,7 @@ isOpen: Controla se o carrinho está aberto ou fechado, iniciando como false.
                 products,
                 toggleCart,
                 addProduct,
+                decreaseProductQuantity,
             }}
         >
             {children}
