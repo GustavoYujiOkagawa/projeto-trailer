@@ -1,8 +1,9 @@
 import { useContext } from "react";
 
-import { Sheet, SheetContent, SheetDescription,SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent,SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 import { CartContext } from "../context/cart";
+import CartProductItem from "./cart-product-item";
 
 // Importação do contexto
 
@@ -12,17 +13,16 @@ const CartSheet = () => {
     return (
         // Modal do carrinho
         <Sheet open={isOpen} onOpenChange={toggleCart}>
-            <SheetContent className="w-[400px] sm:w-[540px]">
+            <SheetContent className="w-[90%] sm:w-[540px]">
                 <SheetHeader>
-                    <SheetTitle>Are you absolutely sure?</SheetTitle>
-                    <SheetDescription>
-                        This action cannot be undone. This will permanently delete your account and remove your data from our servers.
-                    </SheetDescription>
+                    <SheetTitle className="text-left mb-5">Carinho</SheetTitle>
                 </SheetHeader>
-                {/* Conteúdo do carrinho aqui */}
-                {products.map(product => (
-                    <h1 key={product.id}>{product.name} - {product.quantity}</h1>
+                <div className="py-5">
+             {/* Conteúdo do carrinho aqui */}
+             {products.map(product => (
+                    <CartProductItem key={product.id} product={product} />
                 ))}
+                </div>
             </SheetContent>
         </Sheet>
     );
