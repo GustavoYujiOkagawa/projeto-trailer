@@ -17,6 +17,7 @@ export interface ICartContext {
     toggleCart: () => void;
     addProduct: (product: CartProduct) => void;
     decreaseProductQuantity: (productid: string) => void;
+    increaseProductQuantity: (productid: string) => void;
 }
 /* Define a estrutura do contexto do carrinho:
 
@@ -33,6 +34,7 @@ export const CartContext = createContext<ICartContext>({
     toggleCart: () => {},
     addProduct: () => {},
     decreaseProductQuantity: () => {},
+    increaseProductQuantity: () => {},
 });
 /* createContext: Cria um contexto com valores padrão.
 
@@ -103,6 +105,20 @@ Se o id não for igual a productid e a quantidade for 1, ele não muda.
 Se o id não for igual a productid e a quantidade for maior que 1, a quantidade é diminuída em 1. */
 
    /* Alterna o valor de isOpen entre true e false (abrir/fechar o carrinho). */
+   
+   const increaseProductQuantity = (productid: string) => {
+    setProducts((prevProducts) => {
+        return prevProducts.map(prevProduct => {
+            if (prevProduct.id !== productid) {
+                return prevProduct;
+            }
+            if(prevProduct.quantity === 1){
+                return prevProduct;
+            }
+            return { ...prevProduct, quantity: prevProduct.quantity + 1 };
+        });
+    });
+   }
    return (
         <CartContext.Provider
             value={{
@@ -111,6 +127,7 @@ Se o id não for igual a productid e a quantidade for maior que 1, a quantidade 
                 toggleCart,
                 addProduct,
                 decreaseProductQuantity,
+                increaseProductQuantity,
             }}
         >
             {children}
