@@ -1,166 +1,112 @@
 "use client";
 
 import { Product } from "@prisma/client";
-import { createContext, ReactNode, useState } from "react"; 
+import { createContext, ReactNode, useState } from "react";
 
-export interface CartProduct extends Pick<Product, "id" | "name" | "price" | "imageUrl"> {
-    quantity: number;
+export interface CartProduct
+  extends Pick<Product, "id" | "name" | "price" | "imageUrl"> {
+  quantity: number;
 }
-/* Define a estrutura de um produto no carrinho.
-Pick<Product, "id" | "name" | "price" | "imageUrl">:
-Utiliza o utilitário Pick do TypeScript para selecionar apenas os campos id, name, price e imageUrl da interface Product.
-Adiciona o campo extra quantity para armazenar a quantidade do produto no carrinho. */
 
 export interface ICartContext {
-    isOpen: boolean;
-    products: CartProduct[];
-    total: number,
-    toggleCart: () => void;
-    addProduct: (product: CartProduct) => void;
-    decreaseProductQuantity: (productid: string) => void;
-    increaseProductQuantity: (productid: string) => void;
-    removeProduct: (productid: string) => void;
-    
+  isOpen: boolean;
+  products: CartProduct[];
+  total: number;
+  totalQuantity: number;
+  toggleCart: () => void;
+  addProduct: (product: CartProduct) => void;
+  decreaseProductQuantity: (productId: string) => void;
+  increaseProductQuantity: (productId: string) => void;
+  removeProduct: (productId: string) => void;
 }
-/* Define a estrutura do contexto do carrinho:
-
-isOpen: Define se o carrinho está aberto (true) ou fechado (false).
-products: Lista de produtos no carrinho (cada um com CartProduct).
-toggleCart: Função que alterna o estado do carrinho (abre/fecha).
-addProduct: Função para adicionar produtos ao carrinho.
-
- */
 
 export const CartContext = createContext<ICartContext>({
-    isOpen: false,
-    products: [],
-    total: 0,
-    toggleCart: () => {},
-    addProduct: () => {},
-    decreaseProductQuantity: () => {},
-    increaseProductQuantity: () => {},
-    removeProduct: () => {},
+  isOpen: false,
+  total: 0,
+  totalQuantity: 0,
+  products: [],
+  toggleCart: () => {},
+  addProduct: () => {},
+  decreaseProductQuantity: () => {},
+  increaseProductQuantity: () => {},
+  removeProduct: () => {},
 });
-/* createContext: Cria um contexto com valores padrão.
-
-O contexto é tipado com ICartContext, garantindo que ele sempre tenha:
-
-isOpen: Inicialmente false.
-
-products: Inicialmente um array vazio.
-
-toggleCart: Uma função vazia (será implementada no CartProvider). */
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-   const [products, setProducts]= useState<CartProduct[]>([]);
-   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [products, setProducts] = useState<CartProduct[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-   const total = products.reduce((acc, product) => {
+  const total = products.reduce((acc, product) => {
     return acc + product.price * product.quantity;
-   },0)
-    /* products: Armazena a lista de produtos no carrinho, iniciando como um array vazio.
-isOpen: Controla se o carrinho está aberto ou fechado, iniciando como false.
- */
-   const toggleCart = () => {
-    setIsOpen(prev => !prev);
-   }
-   /* O parâmetro prev representa o valor atual de isOpen.
-    !prev inverte o valor:
-    false → true
-    true → false */
-   const addProduct = (product: CartProduct) => {
-    const productIsAlreadyOnTheCart = products.some(prevProduct => prevProduct.id === product.id);
-    /* Recebe um objeto do tipo CartProduct como argumento.
-    Verifica se o produto já está no carrinho usando .some(), que retorna true se algum produto tiver o mesmo id. */
-    if (!productIsAlreadyOnTheCart) {
-        return setProducts(prev => [...prev, product]);
-    }
-    /* Se o produto não está no carrinho:
-    Adiciona o produto ao estado usando o spread operator [...prev, product], que mantém os produtos anteriores e adiciona o novo no final.
-    O return encerra a execução da função após a adição. */
-
-    setProducts(prevProducts => {
-        return prevProducts.map(prevProduct => {
-            if (prevProduct.id === product.id) {
-                return {
-                    ...prevProduct,
-                    quantity: prevProduct.quantity + product.quantity                };
-            }
-            return prevProduct;
-        });
-        /* Se o produto já está no carrinho:
-    Usa .map() para criar um novo array com as alterações necessárias.
-    Verifica se o id do produto no carrinho é igual ao do produto adicionado.
-    Se for igual, cria um novo objeto usando o spread operator para copiar o produto e incrementa a quantidade em +1.
-    Se não for igual, retorna o produto sem alterações. */
-    });
-};
-
-const decreaseProductQuantity = (productid: string) => {
-    setProducts((prevProducts) => {
-        return prevProducts.map(prevProduct => {
-            if (prevProduct.id !== productid) {
-                return prevProduct;
-            }
-            if(prevProduct.quantity === 1){
-                return prevProduct;
-            }
-            return { ...prevProduct, quantity: prevProduct.quantity - 1 };
-        });
-    });
-};
-/* Se o id do produto for igual a productid, ele não muda.
-Se o id não for igual a productid e a quantidade for 1, ele não muda.
-Se o id não for igual a productid e a quantidade for maior que 1, a quantidade é diminuída em 1. */
-
-   /* Alterna o valor de isOpen entre true e false (abrir/fechar o carrinho). */
-   
-   const increaseProductQuantity = (productid: string) => {
-    setProducts((prevProducts) => {
-        return prevProducts.map(prevProduct => {
-            if (prevProduct.id !== productid) {
-                return prevProduct;
-            }
-            if(prevProduct.quantity === 1){
-                return prevProduct;
-            }
-            return { ...prevProduct, quantity: prevProduct.quantity + 1 };
-        });
-    });
-   }
-   /* Se o id do produto não for igual ao productid, mantém o produto sem alterações.
-Se o id for igual ao productid e a quantidade for 1, mantém o produto sem alterações (parece um erro, já que o esperado seria aumentar).
-Caso contrário, aumenta a quantidade em 1.
-Problema: A lógica está invertida; o produto alvo não é alterado corretamente devido ao primeiro if. Deveria verificar id === productid para aumentar. */
-const removeProduct = (productId: string) => {
-    setProducts(prevProducts => prevProducts.filter(prevProducts => prevProducts.id !== productId));
-}
-
-   /* Usa filter para criar uma nova array excluindo o produto cujo id é igual ao productId. */
-   return (
-        <CartContext.Provider
-            value={{
-                isOpen,
-                products,
-                toggleCart,
-                addProduct,
-                decreaseProductQuantity,
-                increaseProductQuantity,
-                removeProduct,
-                total
-            }}
-        >
-            {children}
-        </CartContext.Provider>
+  }, 0);
+  const totalQuantity = products.reduce((acc, product) => {
+    return acc + product.quantity;
+  }, 0);
+  const toggleCart = () => {
+    setIsOpen((prev) => !prev);
+  };
+  const addProduct = (product: CartProduct) => {
+    const productIsAlreadyOnTheCart = products.some(
+      (prevProduct) => prevProduct.id === product.id,
     );
-
-    /* CartContext.Provider: Fornece o contexto para os componentes filhos.
-
-    O value contém:
-
-    O estado atual (isOpen e products).
-
-    A função toggleCart para alternar o estado do carrinho.
-
-    {children}: Renderiza os componentes filhos passados para o CartProvider */
+    if (!productIsAlreadyOnTheCart) {
+      return setProducts((prev) => [...prev, product]);
+    }
+    setProducts((prevProducts) => {
+      return prevProducts.map((prevProduct) => {
+        if (prevProduct.id === product.id) {
+          return {
+            ...prevProduct,
+            quantity: prevProduct.quantity + product.quantity,
+          };
+        }
+        return prevProduct;
+      });
+    });
+  };
+  const decreaseProductQuantity = (productId: string) => {
+    setProducts((prevProducts) => {
+      return prevProducts.map((prevProduct) => {
+        if (prevProduct.id !== productId) {
+          return prevProduct;
+        }
+        if (prevProduct.quantity === 1) {
+          return prevProduct;
+        }
+        return { ...prevProduct, quantity: prevProduct.quantity - 1 };
+      });
+    });
+  };
+  const increaseProductQuantity = (productId: string) => {
+    setProducts((prevProducts) => {
+      return prevProducts.map((prevProduct) => {
+        if (prevProduct.id !== productId) {
+          return prevProduct;
+        }
+        return { ...prevProduct, quantity: prevProduct.quantity + 1 };
+      });
+    });
+  };
+  const removeProduct = (productId: string) => {
+    setProducts((prevProducts) =>
+      prevProducts.filter((prevProduct) => prevProduct.id !== productId),
+    );
+  };
+  return (
+    <CartContext.Provider
+      value={{
+        isOpen,
+        products,
+        toggleCart,
+        addProduct,
+        decreaseProductQuantity,
+        increaseProductQuantity,
+        removeProduct,
+        total,
+        totalQuantity,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 };
