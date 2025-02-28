@@ -38,6 +38,23 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
   const getCategoryButtonVariant = (category: MenuCategoriesWithProducts) => {
     return selectedCategory.id === category.id ? "default" : "secondary";
   };
+
+  const isOpen = () => {
+    const now = new Date(); // Obtém a data e hora atuais
+    const dayOfWeek = now.getDay(); // Obtém o dia da semana (0 = Domingo, 1 = Segunda, ..., 6 = Sábado)
+    const hours = now.getHours(); // Obtém a hora atual
+    const minutes = now.getMinutes(); // Obtém os minutos atuais
+  
+    // Verifica se é de segunda a sexta (1 = Segunda, 5 = Sexta)
+    const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
+  
+    // Verifica se está no horário de funcionamento (19:00 às 21:30)
+    const isOpenTime =
+      (hours > 19 || (hours === 19 && minutes >= 0)) &&
+      (hours < 21 || (hours === 21 && minutes <= 30));
+  
+    return isWeekday && isOpenTime; // Retorna true se estiver aberto
+  };
   return (
     <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-white">
       <div className="p-5">
@@ -54,8 +71,12 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
           </div>
         </div>
         <div className="mt-3 flex items-center gap-1 text-xs text-green-500">
-          <ClockIcon size={12} />
-          <p>Aberto!</p>
+        <ClockIcon size={12} color={isOpen() ? "green" : "red"} />
+<p style={{ color: isOpen() ? "green" : "red" }}>
+  {isOpen() ? "Aberto!" : "Fechado"}
+</p>
+
+
         </div>
       </div>
 

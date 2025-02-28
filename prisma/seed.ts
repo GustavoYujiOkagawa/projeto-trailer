@@ -18,7 +18,9 @@ const main = async () => {
           "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQac8bHYlkBUjlHSKiuseLm2hIFzVY0OtxEPnw",
       },
     });
-    const combosCategory = await tx.menuCategory.create({
+    
+    
+     const combosCategory = await tx.menuCategory.create({
       data: {
         name: "Combos",
         restaurantId: restaurant.id,
@@ -27,6 +29,78 @@ const main = async () => {
     await tx.product.createMany({
       data: [
         {
+          name: "Hot Roll",
+          description: "Rolo de sushi empanado e frito, recheado com salmão e cream cheese, servido quente e crocante.",
+          ingredients: [
+            "Alga nori",
+            "Arroz japonês",
+            "Salmão",
+            "Cream cheese",
+            "Farinha panko",
+            "Óleo para fritura",
+          ],
+          price: 25.9,
+          imageUrl: "https://tse1.mm.bing.net/th?id=OIP.32uJS7TYt9iVSiltQn-p0AHaHo&pid=Api",
+          menuCategoryId: combosCategory.id,
+          restaurantId: restaurant.id,
+        },
+        {
+          name: "Sushi de Salmão (Nigiri)",
+          description: "Fatia de salmão fresco sobre bolinho de arroz temperado, uma combinação clássica e deliciosa.",
+          ingredients: [
+            "Salmão fresco",
+            "Arroz japonês",
+            "Vinagre de arroz",
+            "Wasabi",
+          ],
+          price: 18.5,
+          imageUrl: "https://tse1.mm.bing.net/th?id=OIP.RMImfIsQlbJKwSqfSC4RUAHaEJ&pid=Api",
+          menuCategoryId: combosCategory.id,
+          restaurantId: restaurant.id,
+        },
+        {
+          name: "Temaki de Atum",
+          description: "Cone de alga nori recheado com arroz, atum fresco temperado e cebolinha picada.",
+          ingredients: [
+            "Alga nori",
+            "Arroz japonês",
+            "Atum fresco",
+            "Cebolinha",
+            "Molho shoyu",
+          ],
+          price: 22.0,
+          imageUrl: "https://tse4.mm.bing.net/th?id=OIP.hXA9yPr2Noi4iVRfDZ9MyQHaEO&pid=Api",
+          menuCategoryId: combosCategory.id,
+          restaurantId: restaurant.id,
+        },
+        {
+          name: "Uramaki Califórnia",
+          description: "Rolo de sushi invertido recheado com kani, pepino e manga, coberto com gergelim.",
+          ingredients: [
+            "Arroz japonês",
+            "Alga nori",
+            "Kani kama",
+            "Pepino",
+            "Manga",
+            "Gergelim",
+          ],
+          price: 20.0,
+          imageUrl: "https://tse3.mm.bing.net/th?id=OIP.5uFvX45wcFXGPMS1bfM1KwHaE7&pid=Api",
+          menuCategoryId: combosCategory.id,
+          restaurantId: restaurant.id,
+        },
+        {
+          name: "Sashimi de Salmão",
+          description: "Fatias finas de salmão fresco, servidas com molho shoyu e wasabi.",
+          ingredients: [
+            "Salmão fresco",
+          ],
+          price: 28.0,
+          imageUrl: "https://tse2.mm.bing.net/th?id=OIP.bdSkFvdwbMctpyjUnAqKUQHaE7&pid=Api",
+          menuCategoryId: combosCategory.id,
+          restaurantId: restaurant.id,
+        },
+       /*  {
           name: "McOferta Média Big Mac Duplo",
           description:
             "Quatro hambúrgueres (100% carne bovina), alface americana, queijo fatiado sabor cheddar, molho especial, cebola, picles e pão com gergilim, acompanhamento e bebida.",
@@ -85,6 +159,8 @@ const main = async () => {
             "Carne 100% de peito de frango",
           ],
         },
+
+        
         {
           name: "Duplo Cheddar McMelt",
           description:
@@ -100,10 +176,10 @@ const main = async () => {
             "Molho lácteo com queijo tipo cheddar",
             "Cebola ao molho shoyu",
           ],
-        },
+        }, */
       ],
-    });
-    const hamburguersCategory = await tx.menuCategory.create({
+    });  
+    /* const hamburguersCategory = await tx.menuCategory.create({
       data: {
         name: "Lanches",
         restaurantId: restaurant.id,
@@ -187,8 +263,8 @@ const main = async () => {
           restaurantId: restaurant.id,
         },
       ],
-    });
-    const frenchFriesCategory = await tx.menuCategory.create({
+    }); */
+    /* const frenchFriesCategory = await tx.menuCategory.create({
       data: {
         name: "Fritas",
         restaurantId: restaurant.id,
@@ -229,7 +305,7 @@ const main = async () => {
           restaurantId: restaurant.id,
         },
       ],
-    });
+    }); */
     const drinksCategory = await tx.menuCategory.create({
       data: {
         name: "Bebidas",
@@ -270,7 +346,7 @@ const main = async () => {
         },
       ],
     });
-    const desertsCategory = await tx.menuCategory.create({
+  /*   const desertsCategory = await tx.menuCategory.create({
       data: {
         name: "Sobremesas",
         restaurantId: restaurant.id,
@@ -309,9 +385,9 @@ const main = async () => {
           restaurantId: restaurant.id,
         },
       ],
-    });
+    }); */
   });
-};
+}; 
 
 main()
   .catch((e) => {
